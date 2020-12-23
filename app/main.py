@@ -2,6 +2,7 @@ from typing import List
 import requests
 from fastapi import Request, Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
+from fastapi.middleware.cors import CORSMiddleware
 
 from . import crud, models, schemas
 from .database import SessionLocal, engine
@@ -13,6 +14,18 @@ from .database import SessionLocal, engine
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:3000",
+    "https://wysdi.github.io"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Dependency
 def get_db():

@@ -3,3 +3,4 @@ sqlalchemy
 async-exit-stack
 async-generator
 uvicorn==0.13.2
+requests==2.25.1
