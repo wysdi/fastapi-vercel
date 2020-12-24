@@ -56,16 +56,13 @@ def welcome(name=None):
 
 @app.get('/kurs', response_model=List[schemas.Kurs])
 def get_kurs():
-    url = 'https://spreadsheets.google.com/feeds/list/1-NcBjMa6QOFHxMEpgtawvOlP8EQiPnCBsGaBU95mOSA/od6/public/values?alt=json&amp;callback=displayContent&_=1608704607798'
-
-    data = requests.get(url).json()
-
-    results = []
-    for item in data['feed']['entry']:
-
-        results.append({
-            'bank': item['gsx$bank']['$t'],
-            'beli': item['gsx$beli']['$t'],
-            'jual': item['gsx$jual']['$t'],
-        })
+    results = crud.parse_kurs()
     return results
+
+
+@app.get('/kebasa', response_model=List[schemas.Kebasa])
+def get_kebasa():
+    results = crud.parse_kebasa()
+    return results
+
+

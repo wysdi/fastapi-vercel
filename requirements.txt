@@ -4,3 +4,4 @@ async-exit-stack
 async-generator
 uvicorn==0.13.2
 requests==2.25.1
+beautifulsoup4==4.9.3
