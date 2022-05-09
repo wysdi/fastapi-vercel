@@ -4,17 +4,22 @@ from bs4 import BeautifulSoup
 
 def parse_kurs():
 
-    url = 'https://spreadsheets.google.com/feeds/list/1-NcBjMa6QOFHxMEpgtawvOlP8EQiPnCBsGaBU95mOSA/od6/public/values?alt=json&amp;callback=displayContent&_=1608704607798'
-    data = requests.get(url).json()
-    results = []
-    for item in data['feed']['entry']:
-        results.append({
-            'bank': item['gsx$bank']['$t'],
-            'beli': item['gsx$beli']['$t'],
-            'jual': item['gsx$jual']['$t'],
-        })
+    url = 'https://www.bca.co.id/en/informasi/kurs'
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    results = soup.find(class_='m-table-kurs').find('tbody').find_all('tr')
+    kurs = []
+    for tr in results:
+        row = tr.find_all('td')
+        nama = row[0].text.strip()
+        if nama == 'USD':
+            kurs.append({
+                'bank': 'BCA',
+                'jual': Decimal(sub(r'[^\d.]', '', row[1].text.strip())),
+                'beli': Decimal(sub(r'[^\d.]', '', row[2].text.strip()))
+            })
 
-    return results
+    return kurs
 
 
 def parse_kebasa():
