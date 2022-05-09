@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
-
+from re import sub
+from decimal import Decimal
 
 def parse_kurs():
 
