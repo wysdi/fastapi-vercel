@@ -2,6 +2,6 @@ fastapi==0.52.0
 sqlalchemy
 async-exit-stack
 async-generator
-uvicorn==0.13.2
+uvicorn>=0.15.0,<0.16.0
 requests==2.25.1
 beautifulsoup4==4.9.3
